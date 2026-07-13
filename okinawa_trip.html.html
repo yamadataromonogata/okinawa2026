@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okinawa Trip Itinerary 🏖️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00a4e4;
+            --ocean-dark: #005c8a;
+            --sand-beige: #faf7f2;
+            --card-bg: #ffffff;
+            --coral-pink: #ff6b6b;
+            --text-dark: #2c3e50;
+            --text-muted: #66788a;
+            --accent-yellow: #f1c40f;
+            --accent-green: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Montserrat', sans-serif;
+            background-color: var(--sand-beige);
+            color: var(--text-dark);
+            line-height: 1.7;
+            padding-bottom: 3rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            color: white;
+            text-align: center;
+            padding: 3.5rem 1.5rem 2.5rem;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 164, 228, 0.2);
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: repeating-linear-gradient(-45deg, #ffffff, #ffffff 15px, transparent 15px, transparent 30px);
+            opacity: 0.3;
+        }
+
+        .header-subtitle {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 2.5rem auto 0;
+            padding: 0 1.25rem;
+        }
+
+        .summary-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ocean-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #eef7fc;
+            color: var(--ocean-dark);
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 164, 228, 0.2);
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: transform 0.2s ease;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, var(--ocean-dark), var(--primary-blue));
+            color: white;
+            padding: 1.2rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .day-tag {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(5px);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .timeline {
+            padding: 1.8rem 1.8rem 1rem;
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2.2rem;
+            padding-bottom: 1.8rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0.8rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--coral-pink);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--coral-pink);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 18px;
+            width: 2px;
+            height: 100%;
+            background-color: #e2e8f0;
+            z-index: 1;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .time-badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background: #eef9ff;
+            padding: 0.1rem 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 0.3rem;
+        }
+
+        .spot-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .memo {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .recommend-badge {
+            color: #d9381e;
+            background: #ffebe8;
+            font-weight: 700;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            margin-right: 0.4rem;
+            display: inline-block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+            .day-header {
+                padding: 1rem 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+            .timeline {
+                padding: 1.5rem 1.25rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-subtitle">Okinawa Resort Travel Plan</div>
+        <h1>名護 & 那覇 4泊5日 リゾート旅 🌺</h1>
+        <p>話題のジャングリア、美ら海、絶景ビーチと那覇ハシゴ酒を楽しむ最高の夏休み</p>
+    </header>
+
+    <div class="container">
+
+        <div class="summary-box">
+            <div class="summary-title">📍 今回の旅で行くスポット</div>
+            <div class="tags-container">
+                <span class="tag">🌴 JUNGLIA（ジャングリア）</span>
+                <span class="tag">🐋 美ら海水族館</span>
+                <span class="tag">🍍 パイナップルパーク</span>
+                <span class="tag">🍺 オリオンビール工場</span>
+                <span class="tag">🏖️ 古宇利島・ビーチ</span>
+                <span class="tag">🍶 那覇（栄町・のれん街）16時飲み</span>
+            </div>
+        </div>
+
+        <!-- DAY 1 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>7/22 (水) 羽田発〜名護へドライブ！</h2>
+                <span class="day-tag">DAY 1</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time-badge">午前</span>
+                    <div class="spot-name">那覇空港に到着</div>
+                    <p class="memo">レンタカーをピックアップして、西海岸沿いの58号線をドライブしながら名護へ！</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">13:00</span>
+                    <div class="spot-name">シーサイドドライブイン（恩納村）</div>
+                    <p class="memo"><span class="recommend-badge">おすすめ</span> 創業1967年のレトロアメリカンなドライブイン。名物スープやバーガーをテイクアウトして海辺で食べるのが絶品！</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">15:00</span>
+                    <div class="spot-name">ブセナ海中公園 または 万座毛</div>
+                    <p class="memo">名護の手前で立ち寄り。ブセナの海中展望塔は服を着たままグラスボートで熱帯魚が見られておすすめ。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">17:30</span>
+                    <div class="spot-name">名護市内のホテルチェックイン ＆ あぐー豚ディナー</div>
+                    <p class="memo">名護到着！夕食は人気の「あぐー豚しゃぶしゃぶ」で旅の初日に乾杯。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 2 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>7/23 (木) 話題のJUNGLIA ＆ 名護満喫</h2>
+                <span class="day-tag">DAY 2</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time-badge">09:00</span>
+                    <div class="spot-name">JUNGLIA（ジャングリア）</div>
+                    <p class="memo"><span class="recommend-badge">大本命</span> やんばるの大自然に誕生した超話題のテーマパーク！朝イチの涼しい時間からアトラクションを満喫。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">13:30</span>
+                    <div class="spot-name">ナゴパイナップルパーク</div>
+                    <p class="memo">パイナップル号に乗って熱帯植物園を探検。南国気分を味わった後はパイナップルパフェ＆スウィーツを堪能！</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">15:30</span>
+                    <div class="spot-name">オリオンハッピーパーク（ビール工場）</div>
+                    <p class="memo"><span class="recommend-badge">要事前予約</span> 工場見学後に飲むできたての生ビールは格別！（※運転手の方はノンアルコールビールやソフトドリンク）</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">18:30</span>
+                    <div class="spot-name">名護ローカル居酒屋でディナー</div>
+                    <p class="memo">地元の居酒屋でゴーヤーチャンプルーや島らっきょうをつまみに島唄ライブを楽しむ夜。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 3 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>7/24 (金) 美ら海 ＆ 絶景ビーチドライブ</h2>
+                <span class="day-tag">DAY 3</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time-badge">09:00</span>
+                    <div class="spot-name">沖縄美ら海水族館</div>
+                    <p class="memo">大水槽「黒潮の海」でジンベエザメやマンタの優雅な泳ぎを観賞。朝イチは混雑が控えめでおすすめ。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">12:00</span>
+                    <div class="spot-name">古宇利島（こうりじま）へ絶景ドライブ</div>
+                    <p class="memo"><span class="recommend-badge">おすすめ</span> 橋の両側にエメラルドグリーンの海が広がる古宇利大橋を渡り、名物のガーリックシュリンプランチ！</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">14:00</span>
+                    <div class="spot-name">古宇利ビーチ または 21世紀の森ビーチで海遊び</div>
+                    <p class="memo">透明度抜群の海でシュノーケリングや海水浴。ビーチパラソルの下でのんびりリゾート気分。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">18:30</span>
+                    <div class="spot-name">名護ラストナイト・ステーキディナー</div>
+                    <p class="memo">名護最後の夜は、ボリューミーな沖縄名物ステーキか沖縄和牛焼肉でパワーチャージ！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 4 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>7/25 (土) 那覇へ移動 ＆ 16時から本気飲み！</h2>
+                <span class="day-tag">DAY 4</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time-badge">10:00</span>
+                    <div class="spot-name">名護を出発、南下ドライブ</div>
+                    <p class="memo">道の駅「おんなの駅」でサーターアンダギーやトロピカルかき氷をつまみ食いしながら那覇へ。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">13:30</span>
+                    <div class="spot-name">那覇到着、レンタカー返却 ＆ チェックイン</div>
+                    <p class="memo">ここからはお酒を飲むのでレンタカーを返却！国際通り周辺のホテルにチェックイン。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">16:00</span>
+                    <div class="spot-name">栄町市場 または 国際通り「のれん街」で昼飲みハシゴ酒！</div>
+                    <p class="memo"><span class="recommend-badge">おすすめ</span> 昭和レトロなディープスポット「栄町市場」は16時から開いている名店多数！せんべろ居酒屋やおしゃれビストロをハシゴ。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 5 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>7/26 (日) 朝ごはんを食べて羽田へ帰路</h2>
+                <span class="day-tag">DAY 5</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="time-badge">07:30</span>
+                    <div class="spot-name">牧志公設市場周辺で沖縄朝食</div>
+                    <p class="memo"><span class="recommend-badge">おすすめ</span> 「ポークたまごおにぎり本店（ポーたま）」や市場近くのレトロ喫茶で温かいゆし豆腐・朝食セットを。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">09:00</span>
+                    <div class="spot-name">ゆいレールで那覇空港へ</div>
+                    <p class="memo">空港でお土産（ちんすこう、紅いもタルト等）をまとめ買い。</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="time-badge">午前</span>
+                    <div class="spot-name">那覇空港発 🛫 羽田空港着</div>
+                    <p class="memo">楽しかった4泊5日の沖縄旅行が終了！お疲れ様でした！</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>🌺 Have a wonderful trip to Okinawa! 🏖️</p>
+        <p>Created for your Okinawa Vacation Plan</p>
+    </footer>
+
+</body>
+</html>
